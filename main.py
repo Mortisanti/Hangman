@@ -7,21 +7,38 @@
 secret_word = list("TESTWORD")
 secret_word_progress = ["_"] * len(secret_word)
 alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-max_guesses = 6
+guessed = []
+max_guesses = 5
 game_active = True
 
 print("Welcome to my shitty Hangman game!\n")
 print("The " + str(len(secret_word)) + "-letter word has been chosen: " + " ".join(secret_word_progress) + "\n")
 
 while game_active:
-    print("Letters left: " + " ".join(alphabet))
-    print(f"Guesses left: {max_guesses}")
+    print("Letters Remaining: " + " ".join(alphabet))
+    print(f"Guesses Remaining: {max_guesses}")
     print("\nType a letter and press Enter.")
-    guess = input().upper()
+    # guess = input().upper()
     
-    while len(guess) != 1 or guess not in alphabet:
-        print("Invalid input. Try again")
+    # while len(guess) != 1 or guess not in alphabet:
+    #     print("Invalid input. Try again")
+    #     guess = input().upper()
+
+    while True:
         guess = input().upper()
+        if guess in guessed:
+            print(f"You have already guessed the letter {guess}. Try again.")
+        elif len(guess) > 1:
+            print("Your guess must be one character at a time. Also, numbers and other characters are currently prohibited. Try again.")
+        elif guess == "":
+            print("There was no input. Try again.")
+        elif guess.isalpha() == False:
+            print("Numbers and other characters are currently prohibited. Try again.")
+        elif guess.isalpha() and guess not in alphabet:
+            print("Your guess is not a possible choice out of the remaining letters. Try again.")
+        else:
+            break
+
     
     instances = 0
     for i in range(len(secret_word)):
@@ -30,8 +47,9 @@ while game_active:
             secret_word_progress[i] = secret_word[i]
             
     for i in range(len(alphabet)):
-	    if alphabet[i] == guess:
-	        alphabet[i] = "_"
+        if alphabet[i] == guess:
+            alphabet[i] = "_"
+            guessed.append(guess)
 
     if instances < 1:
         max_guesses -= 1
