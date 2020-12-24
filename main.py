@@ -1,10 +1,10 @@
 #TODO Difficulty selection
 #TODO English dictionary, randomly selects word
 #TODO Convert this entire project to Wheel of Fortune: Metalhead Edition
-#TODO Check if input was already used, return appropriate response
 #TODO Add ability for user to guess full word
+#TODO Add support for compound words
 
-secret_word = list("TESTWORD")
+secret_word = list("AVAILABILITY")
 secret_word_progress = ["_"] * len(secret_word)
 alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 guessed = []
@@ -18,11 +18,6 @@ while game_active:
     print("Letters Remaining: " + " ".join(alphabet))
     print(f"Guesses Remaining: {max_guesses}")
     print("\nType a letter and press Enter.")
-    # guess = input().upper()
-    
-    # while len(guess) != 1 or guess not in alphabet:
-    #     print("Invalid input. Try again")
-    #     guess = input().upper()
 
     while True:
         guess = input().upper()
@@ -39,7 +34,6 @@ while game_active:
         else:
             break
 
-    
     instances = 0
     for i in range(len(secret_word)):
         if secret_word[i] == guess:
