@@ -2,6 +2,7 @@
 #TODO English dictionary, randomly selects word
 #TODO Convert this entire project to Wheel of Fortune: Metalhead Edition
 #TODO Check if input was already used, return appropriate response
+#TODO Add ability for user to guess full word
 
 secret_word = list("TESTWORD")
 secret_word_progress = ["_"] * len(secret_word)
