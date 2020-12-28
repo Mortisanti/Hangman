@@ -7,12 +7,12 @@ import random
 
 def choose_difficulty():
     while True:
-        print("Choose a difficulty: EASY, MEDIUM or HARD.")
-        difficulty_chosen = input().upper()
+        print("\nChoose a difficulty: EASY | MEDIUM | HARD")
+        difficulty_chosen = input("> ").upper()
         if difficulty_chosen == "EASY" or difficulty_chosen == "MEDIUM" or difficulty_chosen == "HARD":
             break
         else:
-            print("Invalid input. Try again.\n")
+            print("Invalid input. Try again.")
     return difficulty_chosen
 
 def generate_wordlist():
@@ -56,7 +56,7 @@ def get_guess():
 
 def play_again():
     while True:
-        again = input().upper()
+        again = input("> ").upper()
         if again == "Y" or again == "YES":
             restart = True
             break
@@ -68,7 +68,7 @@ def play_again():
     return restart
 
 
-print("WELCOME TO MY SHITTY HANGMAN GAME\n")
+print("WELCOME TO MY SHITTY HANGMAN GAME")
 
 game_active = True
 
@@ -80,9 +80,10 @@ while game_active:
     difficulty = choose_difficulty()
     wordlist = generate_wordlist()
     secret_word, secret_word_progress = set_secret_word(wordlist)
-    print("\nThe " + str(len(secret_word)) + "-letter word has been chosen: " + " ".join(secret_word_progress) + "\n")
+    print("\nThe " + str(len(secret_word)) + "-letter word has been chosen.")
 
     while alive:
+        print("Current progress: " + " ".join(secret_word_progress))
         print("Letters Remaining: " + " ".join(alphabet))
         print(f"Guesses Remaining: {max_guesses}")
 
@@ -108,8 +109,6 @@ while game_active:
             print(f"\nThere is one {guess}.\n")
         else:
             print(f"\nThere are {instances} {guess}'s!\n")
-
-        print("Current progress: " + " ".join(secret_word_progress))
                 
         if max_guesses == 0:
             print("You've run out of guesses... R.I.P.\n")
@@ -120,7 +119,7 @@ while game_active:
             print(f"Congratulations, you survived! The secret word is " + "".join(secret_word) + ".\n")
             alive = False
 
-    print("\nWould you like to play again?")
+    print("\nWould you like to play again? YES | NO")
     if play_again():
         pass
     else:
