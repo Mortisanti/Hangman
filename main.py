@@ -1,18 +1,45 @@
-#TODO Difficulty selection
-#TODO English dictionary, randomly selects word
 #TODO Convert this entire project to Wheel of Fortune: Metalhead Edition
 #TODO Add ability for user to guess full word
 #TODO Add support for compound words
+#TODO Hints?
 
-secret_word = list("AVAILABILITY")
-secret_word_progress = ["_"] * len(secret_word)
+import random
+
 alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 guessed = []
 max_guesses = 5
 game_active = True
 
-print("Welcome to my shitty Hangman game!\n")
+print("\nWelcome to my shitty Hangman game!\n")
+
+while True:
+    print("Choose a difficulty: EASY, MEDIUM or HARD.")
+    difficulty = input().upper()
+    if difficulty == "EASY" or difficulty == "MEDIUM" or difficulty == "HARD":
+        break
+    else:
+        print("Invalid input. Try again.\n")
+
+print(f"You have chosen {difficulty} difficulty.")
+if difficulty == "EASY":
+    with open('easy.txt', 'r') as f:
+        words = f.read()
+        words_list = words.splitlines()
+elif difficulty == "MEDIUM":
+    with open('medium.txt', 'r') as f:
+        words = f.read()
+        words_list = words.splitlines()
+elif difficulty == "HARD":
+    with open('hard.txt', 'r') as f:
+        words = f.read()
+        words_list = words.splitlines()
+
+word_selection = random.randint(1, len(words_list))
+secret_word = list(words_list[word_selection].upper())
+secret_word_progress = ["_"] * len(secret_word)
+
 print("The " + str(len(secret_word)) + "-letter word has been chosen: " + " ".join(secret_word_progress) + "\n")
+print(f"The word is {secret_word}")
 
 while game_active:
     print("Letters Remaining: " + " ".join(alphabet))
@@ -49,16 +76,17 @@ while game_active:
         max_guesses -= 1
         print(f"\nSorry, the letter {guess} is not in the secret word.\n")
     elif instances == 1:
-        print(f"\nThere is one {guess}.")
+        print(f"\nThere is one {guess}.\n")
     else:
-       	print(f"\nThere are {instances} {guess}'s!")
+       	print(f"\nThere are {instances} {guess}'s!\n")
         	
     if max_guesses == 0:
         print("You've run out of guesses... R.I.P.\n")
+        print("The secret word was " + "".join(secret_word) + ".")
         break
     
     if secret_word_progress == secret_word:
-    	print(f"Congratulations! The secret word is: " + "".join(secret_word))
+    	print(f"Congratulations! The secret word is " + "".join(secret_word) + ".")
     	break
     else:
     	print("Current progress: " + " ".join(secret_word_progress))
