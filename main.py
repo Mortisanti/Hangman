@@ -5,9 +5,16 @@
 
 import random
 
+def initialize_settings():
+    alive = True
+    alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    guessed = []
+    max_guesses = 5
+    return alive, alphabet, guessed, max_guesses
+
 def choose_difficulty():
+    print("\nChoose a difficulty: EASY | MEDIUM | HARD")
     while True:
-        print("\nChoose a difficulty: EASY | MEDIUM | HARD")
         difficulty_chosen = input("> ").upper()
         if difficulty_chosen == "EASY" or difficulty_chosen == "MEDIUM" or difficulty_chosen == "HARD":
             break
@@ -38,6 +45,7 @@ def set_secret_word(wordlist):
     return secret_word, secret_word_progress
 
 def get_guess():
+    print("\nType a letter and press Enter.")
     while True:
         guess = input("Your guess: ").upper()
         if guess in guessed:
@@ -73,10 +81,7 @@ print("WELCOME TO MY SHITTY HANGMAN GAME")
 game_active = True
 
 while game_active:
-    alive = True
-    alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    guessed = []
-    max_guesses = 5
+    alive, alphabet, guessed, max_guesses = initialize_settings()
     difficulty = choose_difficulty()
     wordlist = generate_wordlist()
     secret_word, secret_word_progress = set_secret_word(wordlist)
@@ -86,8 +91,6 @@ while game_active:
         print("Current progress: " + " ".join(secret_word_progress))
         print("Letters Remaining: " + " ".join(alphabet))
         print(f"Guesses Remaining: {max_guesses}")
-
-        print("\nType a letter and press Enter.")
 
         guess = get_guess()
 
