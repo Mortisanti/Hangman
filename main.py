@@ -1,16 +1,17 @@
 #TODO Convert this entire project to Wheel of Fortune: Metalhead Edition
 #TODO Add ability for user to guess full word
 #TODO Add support for compound words and words with spaces
+#TODO Add score counter (and loss counter?)
 #TODO Hints?
 
 import random
 
 def initialize_settings():
-    alive = True
+    playing = True
     alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     guessed = []
     max_guesses = 5
-    return alive, alphabet, guessed, max_guesses
+    return playing, alphabet, guessed, max_guesses
 
 def choose_difficulty():
     print("\nChoose a difficulty: EASY | MEDIUM | HARD")
@@ -38,11 +39,16 @@ def generate_wordlist():
             wordlist = words.splitlines()
     return wordlist
 
-def set_secret_word(wordlist):
+def set_secret_word():
     word_selection = random.randint(1, len(wordlist))
     secret_word = list(wordlist[word_selection].upper())
     secret_word_progress = ["_"] * len(secret_word)
     return secret_word, secret_word_progress
+
+def show_status():
+    print("Current progress: " + " ".join(secret_word_progress))
+    print("Letters Remaining: " + " ".join(alphabet))
+    print(f"Guesses Remaining: {max_guesses}")
 
 def get_guess():
     print("\nType a letter and press Enter.")
@@ -63,6 +69,7 @@ def get_guess():
     return guess
 
 def play_again():
+    print("\nWould you like to play again? YES | NO")
     while True:
         again = input("> ").upper()
         if again == "Y" or again == "YES":
@@ -81,16 +88,14 @@ print("WELCOME TO MY SHITTY HANGMAN GAME")
 game_active = True
 
 while game_active:
-    alive, alphabet, guessed, max_guesses = initialize_settings()
+    playing, alphabet, guessed, max_guesses = initialize_settings()
     difficulty = choose_difficulty()
     wordlist = generate_wordlist()
-    secret_word, secret_word_progress = set_secret_word(wordlist)
+    secret_word, secret_word_progress = set_secret_word()
     print("\nThe " + str(len(secret_word)) + "-letter word has been chosen.")
 
-    while alive:
-        print("Current progress: " + " ".join(secret_word_progress))
-        print("Letters Remaining: " + " ".join(alphabet))
-        print(f"Guesses Remaining: {max_guesses}")
+    while playing:
+        show_status()
 
         guess = get_guess()
 
@@ -116,13 +121,11 @@ while game_active:
         if max_guesses == 0:
             print("You've run out of guesses... R.I.P.\n")
             print("The secret word was " + "".join(secret_word) + ".\n")
-            alive = False
-        
-        if secret_word_progress == secret_word:
+            playing = False
+        elif secret_word_progress == secret_word:
             print(f"Congratulations, you survived! The secret word is " + "".join(secret_word) + ".\n")
-            alive = False
+            playing = False
 
-    print("\nWould you like to play again? YES | NO")
     if play_again():
         pass
     else:
