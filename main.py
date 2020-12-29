@@ -1,10 +1,13 @@
 #TODO Convert this entire project to Wheel of Fortune: Metalhead Edition
+#TODO Incorporate Tkinkter GUI
+#TODO Create web app version using Flask?
 #TODO Add ability for user to guess full word
 #TODO Add support for compound words and words with spaces
 #TODO Add score counter (and loss counter?)
 #TODO Hints?
 
 import random
+
 
 def initialize_settings():
     playing = True
@@ -14,7 +17,6 @@ def initialize_settings():
     return playing, alphabet, guessed, max_guesses
 
 def choose_difficulty():
-    print("\nChoose a difficulty: EASY | MEDIUM | HARD")
     while True:
         difficulty_chosen = input("> ").upper()
         if difficulty_chosen == "EASY" or difficulty_chosen == "MEDIUM" or difficulty_chosen == "HARD":
@@ -24,7 +26,6 @@ def choose_difficulty():
     return difficulty_chosen
 
 def generate_wordlist():
-    print(f"You have chosen {difficulty} difficulty.")
     if difficulty == "EASY":
         with open('easy.txt', 'r') as f:
             words = f.read()
@@ -51,7 +52,6 @@ def show_status():
     print(f"Guesses Remaining: {max_guesses}")
 
 def get_guess():
-    print("\nType a letter and press Enter.")
     while True:
         guess = input("Your guess: ").upper()
         if guess in guessed:
@@ -68,8 +68,21 @@ def get_guess():
             break
     return guess
 
+def check_letter_instances():
+    instances = 0
+    for i in range(len(secret_word)):
+        if secret_word[i] == guess:
+            instances += 1
+            secret_word_progress[i] = secret_word[i]
+    return instances
+        
+def remove_guess_from_alphabet():
+    for i in range(len(alphabet)):
+        if alphabet[i] == guess:
+            alphabet[i] = "_"
+            guessed.append(guess)
+
 def play_again():
-    print("\nWould you like to play again? YES | NO")
     while True:
         again = input("> ").upper()
         if again == "Y" or again == "YES":
@@ -89,7 +102,11 @@ game_active = True
 
 while game_active:
     playing, alphabet, guessed, max_guesses = initialize_settings()
+
+    print("\nChoose a difficulty: EASY | MEDIUM | HARD")
     difficulty = choose_difficulty()
+    print(f"You have chosen {difficulty} difficulty.")
+
     wordlist = generate_wordlist()
     secret_word, secret_word_progress = set_secret_word()
     print("\nThe " + str(len(secret_word)) + "-letter word has been chosen.")
@@ -97,18 +114,11 @@ while game_active:
     while playing:
         show_status()
 
+        print("\nType a letter and press Enter.")
         guess = get_guess()
 
-        instances = 0
-        for i in range(len(secret_word)):
-            if secret_word[i] == guess:
-                instances += 1
-                secret_word_progress[i] = secret_word[i]
-                
-        for i in range(len(alphabet)):
-            if alphabet[i] == guess:
-                alphabet[i] = "_"
-                guessed.append(guess)
+        instances = check_letter_instances()
+        remove_guess_from_alphabet()
 
         if instances < 1:
             max_guesses -= 1
@@ -117,7 +127,7 @@ while game_active:
             print(f"\nThere is one {guess}.\n")
         else:
             print(f"\nThere are {instances} {guess}'s!\n")
-                
+
         if max_guesses == 0:
             print("You've run out of guesses... R.I.P.\n")
             print("The secret word was " + "".join(secret_word) + ".\n")
@@ -126,6 +136,7 @@ while game_active:
             print(f"Congratulations, you survived! The secret word is " + "".join(secret_word) + ".\n")
             playing = False
 
+    print("\nWould you like to play again? YES | NO")
     if play_again():
         pass
     else:
