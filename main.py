@@ -8,7 +8,6 @@
 
 import random
 
-
 def initialize_settings():
     playing = True
     alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -94,7 +93,6 @@ def play_again():
         else:
             print("Invalid input.")
     return restart
-
 
 print("WELCOME TO MY SHITTY HANGMAN GAME")
 
