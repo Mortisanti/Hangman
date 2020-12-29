@@ -1,4 +1,3 @@
-#TODO Convert this entire project to Wheel of Fortune: Metalhead Edition
 #TODO Incorporate Tkinkter GUI
 #TODO Create web app version using Flask?
 #TODO Add ability for user to guess full word
