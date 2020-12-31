@@ -9,7 +9,7 @@ import random
 
 def initialize_settings():
     playing = True
-    alphabet = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    alphabet = list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
     guessed = []
     max_guesses = 5
     return playing, alphabet, guessed, max_guesses
@@ -17,7 +17,7 @@ def initialize_settings():
 def choose_difficulty():
     while True:
         difficulty_chosen = input("> ").upper()
-        if difficulty_chosen == "EASY" or difficulty_chosen == "MEDIUM" or difficulty_chosen == "HARD":
+        if difficulty_chosen == 'EASY' or difficulty_chosen == 'MEDIUM' or difficulty_chosen == 'HARD':
             break
         else:
             print("Invalid input. Try again.")
@@ -74,10 +74,10 @@ def remove_guess_from_alphabet():
 def play_again():
     while True:
         again = input("> ").upper()
-        if again == "Y" or again == "YES":
+        if again == 'Y' or again == 'YES':
             restart = True
             break
-        elif again == "N" or again == "NO":
+        elif again == 'N' or again == 'NO':
             restart = False
             break
         else:
