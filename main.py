@@ -24,18 +24,9 @@ def choose_difficulty():
     return difficulty_chosen
 
 def generate_wordlist():
-    if difficulty == "EASY":
-        with open('easy.txt', 'r') as f:
-            words = f.read()
-            wordlist = words.splitlines()
-    elif difficulty == "MEDIUM":
-        with open('medium.txt', 'r') as f:
-            words = f.read()
-            wordlist = words.splitlines()
-    elif difficulty == "HARD":
-        with open('hard.txt', 'r') as f:
-            words = f.read()
-            wordlist = words.splitlines()
+    with open(f'{difficulty}.txt', 'r') as f:
+        words = f.read()
+        wordlist = words.splitlines()
     return wordlist
 
 def set_secret_word():
