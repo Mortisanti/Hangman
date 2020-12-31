@@ -1,8 +1,7 @@
 #TODO Incorporate Tkinkter or PyQt5 GUI
 #TODO Create web app version using Flask?
-#TODO Add ability for user to guess full word
 #TODO Add support for compound words and words with spaces
-#TODO Save file with list of words that the user won/lost
+#TODO Save file with list of words that the user won/lost?
 #TODO Hints?
 
 import random
@@ -51,7 +50,7 @@ def show_status():
     print(f"Guesses Remaining: {max_guesses}")
 
 # Strenuously check the user's input for validity
-# This could have been a catch-all, but I wanted some specific, varied responses
+# This could have had a catch-all, but I wanted some specific, varied responses
 def get_guess():
     while True:
         guess = input("Your input: ").upper()
@@ -87,8 +86,8 @@ def get_guess():
                 break
     return guess
 
-# Attempt full word guess
-# UNDER CONSTRUCTION
+# Get user's input for a full word and check it for a few conditions
+# Give the user a second chance if they "have an accident"
 def attempt_full_word():
     accident = 0
     while True:
@@ -107,7 +106,6 @@ def attempt_full_word():
             correct = False
             break
     return correct
-
 
 # Count each instance of the guessed letter that exists in the secret word and replace the empty spots of the progress word, if a correct guess
 def check_letter_instances():
