@@ -927,7 +927,6 @@ inlay
 slyly
 attire
 xxviii
-cancel
 juggle
 roe
 grow
@@ -8866,7 +8865,6 @@ pastry
 bedeck
 audio
 subdue
-guess
 rim
 mooned
 heir
