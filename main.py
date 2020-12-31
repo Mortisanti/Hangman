@@ -38,8 +38,6 @@ def set_secret_word():
     word_selection = random.randint(1, len(wordlist))
     secret_word = list(wordlist[word_selection].upper())
     secret_word_string = wordlist[word_selection].upper()
-    # REMOVE THIS
-    print(secret_word_string)
     secret_word_length = str(len(secret_word))
     secret_word_progress = ["_"] * len(secret_word)
     return secret_word, secret_word_string, secret_word_length, secret_word_progress
@@ -92,12 +90,19 @@ def get_guess():
 # Attempt full word guess
 # UNDER CONSTRUCTION
 def attempt_full_word():
+    accident = 0
     while True:
         guess = input("> ").upper()
-        print(guess)
         if guess == secret_word_string:
             correct = True
             break
+        elif guess == "":
+            print("There was no input. Try again.")
+        elif guess.isalpha() == False:
+            print("Numbers and other characters are currently prohibited. Try again.")
+        elif len(guess) != len(secret_word_string) and accident == 0:
+            accident += 1
+            print("Word length does not match. You get a second chance. Try one more time.")
         else:
             correct = False
             break
