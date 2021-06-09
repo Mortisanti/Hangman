@@ -1,4 +1,4 @@
-#TODO Incorporate Tkinkter or PyQt5 GUI
+#TODO Incorporate Tkinter or PyQt5 GUI
 #TODO Create web app version using Flask?
 #TODO Add support for compound words and words with spaces
 #TODO Save file with list of words that the user won/lost?
